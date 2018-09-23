@@ -1,0 +1,43 @@
+<component name="libraryTable">
+  <library name="AllWeb3j">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/library/abi-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/asm-5.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/asm-analysis-5.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/asm-commons-5.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/asm-tree-5.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/asm-util-5.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/bcprov-jdk15on-1.54.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/codegen-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/commons-lang3-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/console-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/core-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/crypto-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/infura-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jackson-annotations-2.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jackson-core-2.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jackson-databind-2.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/Java-WebSocket-1.3.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/javapoet-1.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jffi-1.2.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-constants-0.9.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-enxio-0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-ffi-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-posix-3.0.33.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-unixsocket-0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/jnr-x86asm-1.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/logging-interceptor-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/okhttp-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/okio-1.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/rlp-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/rxjava-1.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/solidity-gradle-plugin-0.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/tuples-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/utils-3.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/web3j-gradle-plugin-0.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

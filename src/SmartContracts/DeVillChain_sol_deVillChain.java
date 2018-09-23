@@ -1,4 +1,4 @@
-package test;
+package SmartContracts;
 
 import java.math.BigInteger;
 import java.util.Arrays;

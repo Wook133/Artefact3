@@ -4,7 +4,6 @@ contract deVillChain {
     address contractOwner;//owner of the contract
     uint256 capital;
 
-
     uint256 countUsers; // count for mapping purposes
     mapping (uint256 => address) mapUsers; // all users, mapped using countUsers
 
@@ -50,6 +49,21 @@ contract deVillChain {
         require(b, "User does not exist");
         _;
     }
+    modifier userDoesNotExist(address a){
+        bool b = false;
+        uint16 i = 0;
+        while ((b==false) && (i <= countUsers))
+        {
+            if (mapUsers[i] == a)
+            {
+                b = true;
+                i = i -1;
+            }
+            i = i+1;
+        }
+        require(!b, "User does exist");
+        _;
+    }
 
     modifier sourceExists(uint256 i, address a)
     {
@@ -76,6 +90,7 @@ contract deVillChain {
     function addUser()
     payable
     public
+    userDoesNotExist(msg.sender)
     returns (bool)
     {
         mapUsers[countUsers] = msg.sender;
@@ -86,6 +101,7 @@ contract deVillChain {
     function getUser(uint256 i)
     payable
     public
+    userExists(mapUsers[i])
     userIndexOutofBounds(i)
     returns (address)
     {
@@ -243,7 +259,6 @@ contract deVillChain {
         bytes memory b3 = bytes(s);
         return b3;
     }
-
 
     struct source
     {

@@ -62,7 +62,7 @@ contract deVillChain {
         _;
     }
 
-    modifier additionalsourceExists(uint256 i, uint256 j, address a)
+    modifier additionalsourceExists(uint256 i, address a)
     {
         bool b = false;
         if (i <= mapUserSources[a][mapCountUserSources[a]].countadditional)
@@ -193,6 +193,48 @@ contract deVillChain {
         }
     }
 
+    function getAdditionalSource(address a, uint256 i, uint256 j)
+    userExists(a)
+    sourceExists(i, a)
+        //additionalsourceExists(i, a)
+    view
+    public
+    returns (string, uint64, string)
+    {
+        return (mapUserSources[msg.sender][i].mapadditional[j].hashoffile, mapUserSources[msg.sender][i].mapadditional[j].timestamp, mapUserSources[msg.sender][i].mapadditional[j].additionalUrl);
+    }
+    function getAdditionalSourceHoF(address a, uint256 i, uint256 j)
+    userExists(a)
+    sourceExists(i, a)
+    additionalsourceExists(i, a)
+    view
+    public
+    returns (string)
+    {
+        return (mapUserSources[msg.sender][i].mapadditional[j].hashoffile);
+    }
+    function getAdditionalSourceTimestamp(address a, uint256 i, uint256 j)
+    userExists(a)
+    sourceExists(i, a)
+    additionalsourceExists(i, a)
+    view
+    public
+    returns (uint64)
+    {
+        return (mapUserSources[msg.sender][i].mapadditional[j].timestamp);
+    }
+    function getAdditionalSourceAUrl(address a, uint256 i, uint256 j)
+    userExists(a)
+    sourceExists(i, a)
+    additionalsourceExists(i, a)
+    view
+    public
+    returns (string)
+    {
+        return (mapUserSources[msg.sender][i].mapadditional[j].additionalUrl);
+    }
+
+
     function compareStrings (string a, string b) public pure returns (bool){
         return keccak256(string_tobytes(a)) == keccak256(string_tobytes(b));
     }
@@ -201,9 +243,6 @@ contract deVillChain {
         bytes memory b3 = bytes(s);
         return b3;
     }
-
-
-
 
 
     struct source

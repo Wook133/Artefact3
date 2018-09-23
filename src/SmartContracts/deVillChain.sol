@@ -11,7 +11,9 @@ contract deVillChain {
     uint256 creationDate;
     //mapping (address => mapping(uint256 => struct))
 
+    mapping (address => uint256) mapCountUserSources;
     mapping (address => mapping(uint256 => source)) mapUserSources;
+
 
     constructor()
     payable
@@ -34,16 +36,50 @@ contract deVillChain {
     }
 
     function addUser()
+    payable
+    public
+    returns (bool)
     {
         mapUsers[countUsers] = msg.sender;
         countUsers = countUsers + 1;
+        mapCountUserSources[msg.sender] = 0;
+        return true;
     }
     function getUser(uint256 i)
+    payable
     public
     userIndexOutofBounds(i)
     returns (address)
     {
         return mapUsers[i];
+    }
+
+    function addSource(string _th, string _hof, uint64 _ts, string _ou)
+    payable
+    public
+    returns (bool)
+    {
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].thishash = _th;
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].hashoffile = _hof;
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].timestamp = _ts;
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].originalUrl = _ou;
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional = 0;
+        mapCountUserSources[msg.sender] = mapCountUserSources[msg.sender]+1;
+        return true;
+    }
+
+    function addAdditionalSourceLatest(string _hof, uint64 _ts, string _au)
+    payable
+    public
+    returns (bool)
+    {
+        uint256 i = mapCountUserSources[msg.sender];
+        uint256 j = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional;
+        mapUserSources[msg.sender][i].mapadditional[j].timestamp = _ts;
+        mapUserSources[msg.sender][i].mapadditional[j].additionalUrl = _au;
+        mapUserSources[msg.sender][i].mapadditional[j].hashoffile = _hof;
+        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional + 1;
+        return true;
     }
 
 
@@ -57,7 +93,7 @@ contract deVillChain {
         //address poster; // captured with map i.e. when adding
         string originalUrl;
         uint256 countadditional;
-        mapping (uint256 => supplemtarysource) mapadditional;
+        mapping (uint256 => supplementarysource) mapadditional;
     }
 
     struct supplementarysource //only if hashoffiles are identical
@@ -67,9 +103,7 @@ contract deVillChain {
         string hashoffile;
     }
 
-    function deVillChain(){
 
-    }
 
     function closeContract()
     isOwner

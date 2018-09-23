@@ -35,6 +35,44 @@ contract deVillChain {
         _;
     }
 
+    modifier userExists(address a){
+        bool b = false;
+        uint256 i = 0;
+        while ((b==false) && (i <= countUsers))
+        {
+            if (mapUsers[i] == a)
+            {
+                b = true;
+                i = i -1;
+            }
+            i = i+1;
+        }
+        require(b, "User does not exist");
+        _;
+    }
+
+    modifier sourceExists(uint256 i, address a)
+    {
+        bool b = false;
+        if (i <= mapCountUserSources[a])
+        {
+            b = true;
+        }
+        require(b, "User's source does not exist");
+        _;
+    }
+
+    modifier additionalsourceExists(uint256 i, uint256 j, address a)
+    {
+        bool b = false;
+        if (i <= mapUserSources[a][mapCountUserSources[a]].countadditional)
+        {
+            b = true;
+        }
+        require(b, "User's source or additional source does not exist");
+        _;
+    }
+
     function addUser()
     payable
     public
@@ -68,19 +106,102 @@ contract deVillChain {
         return true;
     }
 
+    function getSource(address a, uint256 i)
+        //userExists(a)
+    view
+    public
+    sourceExists(i, a)
+    returns (string, string, uint64, string, uint256)
+    {
+        return (mapUserSources[a][i].thishash,
+        mapUserSources[a][i].hashoffile,
+        mapUserSources[a][i].timestamp,
+        mapUserSources[a][i].originalUrl,
+        mapUserSources[a][i].countadditional);
+    }
+
+    function getHash(address a, uint256 i)
+    view
+    public
+    userExists(a)
+    sourceExists(i, a)
+    returns (string)
+    {
+        return (mapUserSources[a][i].thishash);
+    }
+    function getHashofFile(address a, uint256 i)
+    view
+    public
+    userExists(a)
+    sourceExists(i, a)
+    returns (string)
+    {
+        return (mapUserSources[a][i].hashoffile);
+    }
+
+    function getUrl(address a, uint256 i)
+    view
+    public
+    userExists(a)
+    sourceExists(i, a)
+    returns (string)
+    {
+        return (mapUserSources[a][i].originalUrl);
+    }
+
+    function getTimestamp(address a, uint256 i)
+        //userExists(a)
+    view
+    public
+    userExists(a)
+    sourceExists(i, a)
+    returns (uint64)
+    {
+        return (mapUserSources[a][i].timestamp);
+    }
+
+    function getSourceCount(address a, uint256 i)
+        //userExists(a)
+    view
+    public
+    userExists(a)
+    sourceExists(i, a)
+    returns (uint256)
+    {
+        return (mapUserSources[a][i].countadditional);
+    }
+
+    //add additional if hof is identical
     function addAdditionalSourceLatest(string _hof, uint64 _ts, string _au)
     payable
     public
     returns (bool)
     {
-        uint256 i = mapCountUserSources[msg.sender];
-        uint256 j = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional;
-        mapUserSources[msg.sender][i].mapadditional[j].timestamp = _ts;
-        mapUserSources[msg.sender][i].mapadditional[j].additionalUrl = _au;
-        mapUserSources[msg.sender][i].mapadditional[j].hashoffile = _hof;
-        mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional + 1;
-        return true;
+        if (compareStrings(_hof, mapUserSources[msg.sender][mapCountUserSources[msg.sender]].hashoffile))
+        {
+            uint256 i = mapCountUserSources[msg.sender];
+            uint256 j = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional;
+            mapUserSources[msg.sender][i].mapadditional[j].timestamp = _ts;
+            mapUserSources[msg.sender][i].mapadditional[j].additionalUrl = _au;
+            mapUserSources[msg.sender][i].mapadditional[j].hashoffile = _hof;
+            mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional = mapUserSources[msg.sender][mapCountUserSources[msg.sender]].countadditional + 1;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+
+    function compareStrings (string a, string b) public pure returns (bool){
+        return keccak256(string_tobytes(a)) == keccak256(string_tobytes(b));
+    }
+
+    function string_tobytes( string s) pure public returns (bytes){
+        bytes memory b3 = bytes(s);
+        return b3;
+    }
+
 
 
 
@@ -108,9 +229,7 @@ contract deVillChain {
     function closeContract()
     isOwner
     public
-    returns (bool)
     {
         selfdestruct(contractOwner);
-        return true;
     }
 }

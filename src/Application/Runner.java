@@ -139,8 +139,8 @@ public class Runner extends Application {
     public Scene createMenu(Stage stage)
     {
         BorderPane borderPane = new BorderPane();
-        borderPane.setPrefWidth(150.0);
-        borderPane.setPrefHeight(100.0);
+        borderPane.setPrefWidth(340.0);
+        borderPane.setPrefHeight(150.0);
         borderPane.setPadding(new Insets(10,50,50,50));
         borderPane.setStyle(" -fx-background-color:  linear-gradient(lightblue, white);\n" +
                 " -fx-border-color: black;\n" +
@@ -152,8 +152,8 @@ public class Runner extends Application {
         grid.setPadding(new Insets(20,20,20,20));
         grid.setHgap(5);
         grid.setVgap(5);
-        grid.setPrefWidth(150.0);
-        grid.setPrefHeight(100.0);
+        grid.setPrefWidth(340.0);
+        grid.setPrefHeight(150.0);
         grid.setVgap(4);
         grid.setPadding(new Insets(5, 5, 5, 5));
 
@@ -173,7 +173,7 @@ public class Runner extends Application {
                 "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
         // btnGetInformation.setOnAction(event -> stage.setScene(createViewInformation(stage)));
 
-
+        grid.setHgap(55.0);
 
         Button btnClose = new Button("Close");
         btnClose.setStyle("-fx-text-fill: white;\n" +
@@ -185,9 +185,9 @@ public class Runner extends Application {
         btnAddSource.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         btnViewSource.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         btnClose.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        grid.add(btnAddSource, 0, 0, 2, 1);
-        grid.add(btnViewSource, 0, 1, 2, 1);
-        grid.add(btnClose, 0, 2, 2, 1);
+        grid.add(btnAddSource, 2, 0, 2, 2);
+        grid.add(btnViewSource, 2, 8, 2, 2);
+        grid.add(btnClose, 2, 16, 2, 2);
         scMenu = new Scene(borderPane);
 
         return scMenu;

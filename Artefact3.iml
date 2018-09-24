@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="AllWeb3j" level="project" />
+    <orderEntry type="library" name="DVClib" level="project" />
   </component>
 </module>

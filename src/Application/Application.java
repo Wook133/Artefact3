@@ -35,9 +35,6 @@ public class Application extends javafx.application.Application {
         Scene scene = createMainScene();
         Stage editingStage = createEditingStage(primaryStage);
         Controller controller = new loginController();
-
-
-        primaryStage.setTitle("Example 4");
         primaryStage.setScene(controller.linkToScene(scene, editingStage));
         primaryStage.show();
     }

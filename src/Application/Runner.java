@@ -1,12 +1,14 @@
 package Application;
 
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -17,20 +19,39 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
+
 import java.io.File;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class loginController implements Controller {
-
+public class Runner extends Application {
+    String smartcontractaddress1 = "0xc83bebe3fe6f197715d18d9723458802ce068c8f";
     protected boolean loggedIn = false;
     protected File selectedFile;
     protected String sPath;
     protected String sPassword;
 
-    Scene scCur;
+    Scene scLogin;
+    Scene scMenu;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
-    public Scene linkToScene(Stage editing)
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("deVill Chain");
+
+        scLogin = createLoginScene(primaryStage);
+        primaryStage.setScene(scLogin);
+        primaryStage.show();
+    }
+
+
+
+
+    Scene scCur;
+
+    public Scene createLoginScene(Stage editing)
     {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefWidth(340.0);
@@ -98,11 +119,11 @@ public class loginController implements Controller {
                 " -fx-background-radius: 20;");
 
 
-        AtomicReference<Scene> scout = new AtomicReference<>(new Scene((borderPane)));
+        AtomicReference<Scene> scTemp = new AtomicReference<>(new Scene((borderPane)));
         btnLogin.setOnAction(event ->
         {
-            editing.setScene(createMenu(editing));
-
+            scTemp.set(createMenu(editing));
+            editing.setScene(scTemp.get());
           /*  login(txtPassword, editing);
             if (loggedIn)
             {
@@ -111,51 +132,8 @@ public class loginController implements Controller {
                 editing.setScene(s);
             }*/
         });
-        scCur = scout.get();
-        return scout.get();
-    }
-    private void loadKeystore(Stage stage)
-    {
-        try {
-            // create a file chooser that opens *.shapes files
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Keystore File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Keystore", "*.*"));
-            // display the chooser and return the file selected
-            selectedFile = fileChooser.showOpenDialog(stage);
-            System.out.println(selectedFile.getAbsolutePath());
-            sPath = selectedFile.getAbsolutePath().replaceAll("[/\\\\]", "//");
-            System.out.println(sPath);
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-    private void login(PasswordField txtPassword, Stage stage)
-    {
-        try {
-            sPassword = txtPassword.getText();
-            System.out.println("Password: " + sPassword);
-            Web3j web3j = Web3j.build(new HttpService());
-            System.out.println("Connected to Ethereum client version: " + web3j.web3ClientVersion().send().getWeb3ClientVersion().toString());
-            Credentials credentials = WalletUtils.loadCredentials(sPassword, sPath);
-            System.out.println("Credentials loaded: " + credentials.getAddress());
-            loggedIn = true;
-            System.out.println("Correct Password and keystore combo");
-        }
-        catch (CipherException ce)
-        {
-            loggedIn = false;
-            System.out.println("Wrong Password and keystore combo");
-        }
-        catch (Exception e)
-        {
-            loggedIn = false;
-            e.printStackTrace();
-        }
+        scCur = scTemp.get();
+        return scTemp.get();
     }
 
     public Scene createMenu(Stage stage)
@@ -210,9 +188,54 @@ public class loginController implements Controller {
         grid.add(btnAddSource, 0, 0, 2, 1);
         grid.add(btnViewSource, 0, 1, 2, 1);
         grid.add(btnClose, 0, 2, 2, 1);
-        Scene scout = new Scene(borderPane);
+        scMenu = new Scene(borderPane);
 
-        return scout;
+        return scMenu;
+    }
+
+
+    private void loadKeystore(Stage stage)
+    {
+        try {
+            // create a file chooser that opens *.shapes files
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Keystore File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Keystore", "*.*"));
+            // display the chooser and return the file selected
+            selectedFile = fileChooser.showOpenDialog(stage);
+            System.out.println(selectedFile.getAbsolutePath());
+            sPath = selectedFile.getAbsolutePath().replaceAll("[/\\\\]", "//");
+            System.out.println(sPath);
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    private void login(PasswordField txtPassword, Stage stage)
+    {
+        try {
+            sPassword = txtPassword.getText();
+            System.out.println("Password: " + sPassword);
+            Web3j web3j = Web3j.build(new HttpService());
+            System.out.println("Connected to Ethereum client version: " + web3j.web3ClientVersion().send().getWeb3ClientVersion().toString());
+            Credentials credentials = WalletUtils.loadCredentials(sPassword, sPath);
+            System.out.println("Credentials loaded: " + credentials.getAddress());
+            loggedIn = true;
+            System.out.println("Correct Password and keystore combo");
+        }
+        catch (CipherException ce)
+        {
+            loggedIn = false;
+            System.out.println("Wrong Password and keystore combo");
+        }
+        catch (Exception e)
+        {
+            loggedIn = false;
+            e.printStackTrace();
+        }
     }
 
 

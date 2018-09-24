@@ -1,0 +1,23 @@
+strict digraph {
+  constructor [color=brown]
+  addUser [color=brown]
+  getUser [color=brown]
+  addSource [color=brown]
+  getSource [color=yellow]
+  getHash [color=yellow]
+  getHashofFile [color=yellow]
+  getUrl [color=yellow]
+  getTimestamp [color=yellow]
+  getSourceCount [color=yellow]
+  addAdditionalSourceLatest [color=brown]
+  getAdditionalSource [color=yellow]
+  getAdditionalSourceHoF [color=yellow]
+  getAdditionalSourceTimestamp [color=yellow]
+  getAdditionalSourceAUrl [color=yellow]
+  compareStrings [color=green]
+  string_tobytes [color=green]
+  closeContract
+  selfdestruct
+  closeContract -> selfdestruct
+}
+

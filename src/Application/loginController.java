@@ -17,9 +17,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
-
 import java.io.File;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class loginController implements Controller {
 
@@ -32,7 +30,7 @@ public class loginController implements Controller {
     public Scene linkToScene(Scene scene, Stage editing)
     {
         BorderPane borderPane = new BorderPane();
-        borderPane.setPrefWidth(400.0);
+        borderPane.setPrefWidth(340.0);
         borderPane.setPadding(new Insets(10,50,50,50));
 
         HBox hb = new HBox();
@@ -78,47 +76,18 @@ public class loginController implements Controller {
 
         gridPane.add(lbl, 0, 0);
         gridPane.add(btnLoad, 1, 0, 2, 1);
-
         gridPane.add(lbl2, 0, 1);
         gridPane.add(txtPassword, 1, 1, 2, 1);
         gridPane.add(btnLogin,1,2, 2, 2);
-
-
-        //DropShadow effect
-        /*DropShadow dropShadow = new DropShadow();
-        dropShadow.setOffsetX(1);
-        dropShadow.setOffsetY(1);*/
-
-
         Text text = new Text("deVill Chain Login");
         text.setFont(Font.font("Arial Narrow", FontWeight.BOLD, 28));
-       /* text.setEffect(dropShadow);*/
-
-
         hb.getChildren().add(text);
-
         borderPane.setId("bp");
-
         gridPane.setId("root");
         text.setId("text");
-
         borderPane.setTop(hb);
         borderPane.setCenter(gridPane);
-
-
-
-
-       /* Region p = new Region();
-        p.setPrefSize(200.0, 0.0);
-        Region p2 = new Region();
-        p2.setPrefSize(115.0, 0.0);
-        flowPane.getChildren().addAll(lbl, btnLoad, p,
-                lbl2, txtPassword, p2,
-                btnLogin
-        );
-        borderPane.setTop(flowPane);*/
         btnLoad.setOnAction(event -> loadKeystore(editing));
-        //AtomicReference<Scene> scTemp = new AtomicReference<>(new Scene((borderPane)));
         borderPane.setStyle(" -fx-background-color:  linear-gradient(lightblue, white);\n" +
                 " -fx-border-color: black;\n" +
                 " -fx-border-radius: 20;\n" +
